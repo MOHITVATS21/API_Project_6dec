@@ -20,6 +20,7 @@ public class FakestoreService implements ProductService {
 
     @Override
     public Products getProduct(Long id) {
+        System.out.println("we got the single product");
         return null;
     }
 }

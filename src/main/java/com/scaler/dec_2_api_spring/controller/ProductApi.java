@@ -4,8 +4,11 @@ import com.scaler.dec_2_api_spring.model.Products;
 import com.scaler.dec_2_api_spring.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductApi {
+
 
     private ProductService productService;
 
@@ -18,8 +21,15 @@ public class ProductApi {
 
     }
 
+    @GetMapping("/products/{id}")
+    private Products getProduct(@PathVariable Long id) {
+        productService.getProduct(id);
+        System.out.println("did it");
+        return  null;
+    }
+
     @GetMapping("/products")
-    private Products getProducts(Long id) {
+    private List<Products> getProducts(Products products) {
         return  null;
     }
 
