@@ -1,5 +1,6 @@
 package com.scaler.dec_2_api_spring.controller;
 
+import com.scaler.dec_2_api_spring.FakestoreDTO.FakestoreDto;
 import com.scaler.dec_2_api_spring.model.Products;
 import com.scaler.dec_2_api_spring.service.ProductService;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +18,20 @@ public class ProductApi {
     }
 
     @PostMapping("/products")
-    private void addProduct(Products product) {
+    private Products addProduct(@RequestBody Products product) {
+    Products p=productService.addProduct(product.getId(),product.getTitle()
+    ,product.getDescription(),product.getImage(),product.getPrice(),product.getCategory().getName());
+
+    return p;
 
     }
 
     @GetMapping("/products/{id}")
-    private Products getProduct(@PathVariable Long id) {
-        productService.getProduct(id);
+    private Products getProductbyID(@PathVariable("id") Long id) {
+        System.out.println("let's start");
+        Products p=productService.getsingleProduct(id);
         System.out.println("did it");
-        return  null;
+        return  p;
     }
 
     @GetMapping("/products")
@@ -40,8 +46,11 @@ public class ProductApi {
 
     }
 
-    @DeleteMapping("/products")
-    private void deleteProduct(Long id) {
+    @DeleteMapping("/products/{id}")
+    private String deleteProduct(@PathVariable Long id) {
+        System.out.println("delete is successful");
+        productService.deleteProduct(id);
+        return "you did it the delete";
 
     }
 
