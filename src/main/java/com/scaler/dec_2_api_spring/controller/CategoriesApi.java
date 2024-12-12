@@ -13,8 +13,8 @@ public class CategoriesApi {
 
     }
     @GetMapping("/categories")
-    private Categories getCategory(Long id) {
-        return null;
+    private void getCategory(Long id) {
+        //return null;
     }
     @PutMapping("/categories")
     private void updateCategory(Categories category) {

@@ -5,9 +5,18 @@ public class Products {
     private Long id;
     private String title;
     private String description;
-    private String imageurl;
+    private String image;
+
     private Double price;
-    private Long category_id;
+    private Categories category;
+
+    public Categories getCategory() {
+        return category;
+    }
+
+    public void setCategory(Categories category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -33,12 +42,12 @@ public class Products {
         this.description = description;
     }
 
-    public String getImageurl() {
-        return imageurl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Double getPrice() {
@@ -49,23 +58,36 @@ public class Products {
         this.price = price;
     }
 
-    public Long getCategory_id() {
-        return category_id;
-    }
 
-    public void setCategory_id(Long category_id) {
-        this.category_id = category_id;
-    }
+
+
 
     public Products() {
+        System.out.println("I am called");
+
     }
 
-    public Products(Long id, String title, String description, String imageurl, Double price, Long category_id) {
+    public Products(Long id, String title, String description, String image, Double price, Categories category) {
+        System.out.println("he is not called");
         this.id = id;
         this.title = title;
         this.description = description;
-        this.imageurl = imageurl;
+        this.image = image;
         this.price = price;
-        this.category_id = category_id;
+        this.category = category;
     }
+
+
+    public String toString() {
+        return "Products{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                ", category=" + category +
+                '}';
+    }
+
+
 }

@@ -21,6 +21,7 @@ public class Categories {
     }
 
     public Categories() {
+        System.out.println("cat is called");
     }
 
     public Categories(String name, Long id) {
