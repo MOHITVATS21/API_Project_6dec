@@ -1,5 +1,6 @@
 package com.scaler.dec_2_api_spring.service;
 
+import com.scaler.dec_2_api_spring.Exceptions.ProductNotFoundException;
 import com.scaler.dec_2_api_spring.model.Categories;
 import com.scaler.dec_2_api_spring.model.Products;
 
@@ -10,7 +11,9 @@ public interface ProductService {
 
     List<Products> getProducts();
 
-    Products getsingleProduct(Long id);
+    Products getsingleProduct(Long id) throws ProductNotFoundException;
 
     String deleteProduct(Long id);
+
+    String updateProduct(Long id , String title, String description, String image, Double price, String category);
 }
