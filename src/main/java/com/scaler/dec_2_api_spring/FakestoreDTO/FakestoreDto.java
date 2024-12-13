@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 //@Getter
 //@Setter
-//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class FakestoreDto {
 
    // @JsonProperty("id")

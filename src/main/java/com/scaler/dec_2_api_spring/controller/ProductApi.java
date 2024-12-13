@@ -43,15 +43,22 @@ public class ProductApi {
     }
 
     @GetMapping("/products")
-    private List<Products> getProducts(Products products) {
-        return  null;
+    private List<FakestoreDto> getProducts(Products products) {
+        return  productService.getProducts();
     }
 
 
 
     @PutMapping("/products")
-    private String updateProduct(Products product) {
-        return "done update";
+    private Products updateProduct(@RequestBody Products product) {
+        Products p=productService.updateProduct(product.getId(),
+                product.getTitle(),
+                product.getDescription(),
+                product.getImage(),
+                product.getPrice(),
+                product.getCategory().getName());
+
+        return p;
 
     }
 
@@ -59,7 +66,7 @@ public class ProductApi {
     private String deleteProduct(@PathVariable Long id) {
         System.out.println("delete is successful");
         productService.deleteProduct(id);
-        return "you did it the delete";
+        return HttpStatus.NO_CONTENT.toString();
 
     }
 

@@ -3,6 +3,9 @@ package com.scaler.dec_2_api_spring.service;
 import com.scaler.dec_2_api_spring.Exceptions.ProductNotFoundException;
 import com.scaler.dec_2_api_spring.FakestoreDTO.FakestoreDto;
 import com.scaler.dec_2_api_spring.model.Products;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,9 +35,16 @@ public class FakestoreService implements ProductService {
         return response.getProduct();
     }
 
-    public List<Products> getProducts() {
-        return null;
+
+
+    public List<FakestoreDto> getProducts() {
+        List<FakestoreDto> products = restTemplate.getForObject("https://fakestoreapi.com/products", List.class);
+
+
+        return products;
     }
+
+
 
     public Products getsingleProduct(Long id) throws ProductNotFoundException {
         System.out.println("we got the single product");
@@ -49,6 +59,8 @@ public class FakestoreService implements ProductService {
         return fakestoreDto.getProduct();
     }
 
+
+
     @Override
     public String deleteProduct(Long id) {
 
@@ -57,8 +69,10 @@ public class FakestoreService implements ProductService {
         return "delete successful";
     }
 
+
+
     @Override
-    public String updateProduct(Long id, String title, String description, String image, Double price, String category) {
+    public Products updateProduct(Long id, String title, String description, String image, Double price, String category) {
 
         FakestoreDto fakestoreDto = new FakestoreDto();
         fakestoreDto.setId(id);
@@ -67,8 +81,8 @@ public class FakestoreService implements ProductService {
         fakestoreDto.setDescription(description);
         fakestoreDto.setImage(image);
         fakestoreDto.setCategory(category);
-
-        restTemplate.put("https://fakestoreapi.com/products"+id,FakestoreDto.class);
-        return "update successful";
+        HttpEntity<FakestoreDto> requestentity=new HttpEntity<>(fakestoreDto);
+        ResponseEntity<FakestoreDto> response=restTemplate.exchange("https://fakestoreapi.com/products"+id, HttpMethod.PUT,requestentity,FakestoreDto.class);
+        return response.getBody().getProduct();
     }
 }
