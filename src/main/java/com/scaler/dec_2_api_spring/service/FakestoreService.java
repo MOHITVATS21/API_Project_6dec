@@ -1,7 +1,7 @@
 package com.scaler.dec_2_api_spring.service;
 
+import com.scaler.dec_2_api_spring.Exceptions.ProductNotFoundException;
 import com.scaler.dec_2_api_spring.FakestoreDTO.FakestoreDto;
-import com.scaler.dec_2_api_spring.model.Categories;
 import com.scaler.dec_2_api_spring.model.Products;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -36,12 +36,16 @@ public class FakestoreService implements ProductService {
         return null;
     }
 
-    public Products getsingleProduct(Long id) {
+    public Products getsingleProduct(Long id) throws ProductNotFoundException {
         System.out.println("we got the single product");
         FakestoreDto fakestoreDto= restTemplate.getForObject("https://fakestoreapi.com/products/"+id,
                 FakestoreDto.class);
         //System.out.println(restTemplate.getForObject("https://fakestoreapi.com/products/" +(1),FakestoreDto.class));
-        System.out.println("FakeStore DTO::"+fakestoreDto.toString());
+        //System.out.println("FakeStore DTO::"+fakestoreDto.toString());
+
+        if(fakestoreDto==null){
+            throw new ProductNotFoundException("Product not found with id "+id);
+        }
         return fakestoreDto.getProduct();
     }
 
@@ -51,5 +55,20 @@ public class FakestoreService implements ProductService {
         restTemplate.delete("https://fakestoreapi.com/products/"+id);
 
         return "delete successful";
+    }
+
+    @Override
+    public String updateProduct(Long id, String title, String description, String image, Double price, String category) {
+
+        FakestoreDto fakestoreDto = new FakestoreDto();
+        fakestoreDto.setId(id);
+        fakestoreDto.setTitle(title);
+        fakestoreDto.setPrice(price);
+        fakestoreDto.setDescription(description);
+        fakestoreDto.setImage(image);
+        fakestoreDto.setCategory(category);
+
+        restTemplate.put("https://fakestoreapi.com/products"+id,FakestoreDto.class);
+        return "update successful";
     }
 }
