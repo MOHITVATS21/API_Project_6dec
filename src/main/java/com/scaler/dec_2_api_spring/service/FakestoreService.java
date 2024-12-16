@@ -3,12 +3,14 @@ package com.scaler.dec_2_api_spring.service;
 import com.scaler.dec_2_api_spring.Exceptions.ProductNotFoundException;
 import com.scaler.dec_2_api_spring.FakestoreDTO.FakestoreDto;
 import com.scaler.dec_2_api_spring.model.Products;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class FakestoreService implements ProductService {
@@ -37,21 +39,30 @@ public class FakestoreService implements ProductService {
 
 
 
-    public List<FakestoreDto> getProducts() {
-        List<FakestoreDto> products = restTemplate.getForObject("https://fakestoreapi.com/products", List.class);
+    public List<Products> getProducts() {
+        FakestoreDto[] fakeStoreListOfProducts =
+                restTemplate.getForObject("https://fakestoreapi.com/products/",
+                        FakestoreDto[].class);
+        List<Products> listOfProducts = new ArrayList<>();
+        for (FakestoreDto fakeStoreListOfProduct : fakeStoreListOfProducts) {
+            listOfProducts.add(fakeStoreListOfProduct.getProduct());
+        }
 
+        return listOfProducts;
 
-        return products;
     }
-
 
 
     public Products getsingleProduct(Long id) throws ProductNotFoundException {
         System.out.println("we got the single product");
-        FakestoreDto fakestoreDto= restTemplate.getForObject("https://fakestoreapi.com/products/"+id,
-                FakestoreDto.class);
+
+
+        FakestoreDto fakestoreDto= restTemplate.getForObject("https://fakestoreapi.com/products/"+id,FakestoreDto.class);
+
+
+
         //System.out.println(restTemplate.getForObject("https://fakestoreapi.com/products/" +(1),FakestoreDto.class));
-        //System.out.println("FakeStore DTO::"+fakestoreDto.toString());
+        System.out.println("FakeStore DTO::"+fakestoreDto.toString());
 
         if(fakestoreDto==null){
             throw new ProductNotFoundException("Product not found with id "+id);
@@ -72,17 +83,17 @@ public class FakestoreService implements ProductService {
 
 
     @Override
-    public Products updateProduct(Long id, String title, String description, String image, Double price, String category) {
+    public Products updateProduct(Products product) {
 
         FakestoreDto fakestoreDto = new FakestoreDto();
-        fakestoreDto.setId(id);
-        fakestoreDto.setTitle(title);
-        fakestoreDto.setPrice(price);
-        fakestoreDto.setDescription(description);
-        fakestoreDto.setImage(image);
-        fakestoreDto.setCategory(category);
+        fakestoreDto.setId(product.getId());
+        fakestoreDto.setTitle(product.getTitle());
+        fakestoreDto.setPrice(product.getPrice());
+        fakestoreDto.setDescription(product.getDescription());
+        fakestoreDto.setImage(product.getImage());
+        fakestoreDto.setCategory(product.getCategory().getName());
         HttpEntity<FakestoreDto> requestentity=new HttpEntity<>(fakestoreDto);
-        ResponseEntity<FakestoreDto> response=restTemplate.exchange("https://fakestoreapi.com/products"+id, HttpMethod.PUT,requestentity,FakestoreDto.class);
+        ResponseEntity<FakestoreDto> response=restTemplate.exchange("https://fakestoreapi.com/products/"+product.getId(), HttpMethod.PUT,requestentity,FakestoreDto.class);
         return response.getBody().getProduct();
     }
 }

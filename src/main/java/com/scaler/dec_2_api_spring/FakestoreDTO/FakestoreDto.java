@@ -32,6 +32,8 @@ public class FakestoreDto {
 
     private String image;
 
+
+
     public String getImage() {
         return image;
     }
@@ -79,6 +81,8 @@ public class FakestoreDto {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 
     public Products getProduct() {
         // Create a new Products object

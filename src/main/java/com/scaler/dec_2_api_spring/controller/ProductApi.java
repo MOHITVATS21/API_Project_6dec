@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProductApi {
@@ -19,6 +20,7 @@ public class ProductApi {
     private ProductService productService;
 
     public ProductApi(ProductService productService) {
+
         this.productService = productService;
     }
 
@@ -43,22 +45,22 @@ public class ProductApi {
     }
 
     @GetMapping("/products")
-    private List<FakestoreDto> getProducts(Products products) {
-        return  productService.getProducts();
+    private List<Products> getProducts() {
+        System.out.println("Starting the Get all Products API here");
+        List<Products> p = productService.getProducts();
+        System.out.println("Ending the Get All products API");
+
+        return p;
     }
 
 
 
     @PutMapping("/products")
     private Products updateProduct(@RequestBody Products product) {
-        Products p=productService.updateProduct(product.getId(),
-                product.getTitle(),
-                product.getDescription(),
-                product.getImage(),
-                product.getPrice(),
-                product.getCategory().getName());
+        Products p=productService.updateProduct(product);
 
         return p;
+
 
     }
 

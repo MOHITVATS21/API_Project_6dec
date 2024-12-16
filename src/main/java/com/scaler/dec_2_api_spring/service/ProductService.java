@@ -9,11 +9,11 @@ import java.util.List;
 public interface ProductService {
     Products addProduct(Long id, String title, String description, String image, Double price, String category);
 
-    List<FakestoreDto> getProducts();
+    List<Products> getProducts();
 
     Products getsingleProduct(Long id) throws ProductNotFoundException;
 
     String deleteProduct(Long id);
 
-    Products updateProduct(Long id , String title, String description, String image, Double price, String category);
+    Products updateProduct(Products product);
 }
