@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 //@Getter
 //@Setter
-//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class FakestoreDto {
 
    // @JsonProperty("id")
@@ -31,6 +31,8 @@ public class FakestoreDto {
     private String category;
 
     private String image;
+
+
 
     public String getImage() {
         return image;
@@ -79,6 +81,8 @@ public class FakestoreDto {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 
     public Products getProduct() {
         // Create a new Products object

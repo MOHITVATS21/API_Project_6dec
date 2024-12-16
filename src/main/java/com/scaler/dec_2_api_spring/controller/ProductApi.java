@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProductApi {
@@ -19,6 +20,7 @@ public class ProductApi {
     private ProductService productService;
 
     public ProductApi(ProductService productService) {
+
         this.productService = productService;
     }
 
@@ -43,15 +45,22 @@ public class ProductApi {
     }
 
     @GetMapping("/products")
-    private List<Products> getProducts(Products products) {
-        return  null;
+    private List<Products> getProducts() {
+        System.out.println("Starting the Get all Products API here");
+        List<Products> p = productService.getProducts();
+        System.out.println("Ending the Get All products API");
+
+        return p;
     }
 
 
 
     @PutMapping("/products")
-    private String updateProduct(Products product) {
-        return "done update";
+    private Products updateProduct(@RequestBody Products product) {
+        Products p=productService.updateProduct(product);
+
+        return p;
+
 
     }
 
@@ -59,7 +68,7 @@ public class ProductApi {
     private String deleteProduct(@PathVariable Long id) {
         System.out.println("delete is successful");
         productService.deleteProduct(id);
-        return "you did it the delete";
+        return HttpStatus.NO_CONTENT.toString();
 
     }
 
