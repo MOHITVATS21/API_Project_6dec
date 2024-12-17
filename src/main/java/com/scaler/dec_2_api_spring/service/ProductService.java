@@ -1,7 +1,6 @@
 package com.scaler.dec_2_api_spring.service;
 
 import com.scaler.dec_2_api_spring.Exceptions.ProductNotFoundException;
-import com.scaler.dec_2_api_spring.FakestoreDTO.FakestoreDto;
 import com.scaler.dec_2_api_spring.model.Products;
 
 import java.util.List;

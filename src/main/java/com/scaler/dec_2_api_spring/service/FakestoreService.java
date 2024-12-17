@@ -22,7 +22,7 @@ public class FakestoreService implements ProductService {
         this.restTemplate = restTemplate;
     }
 
-
+    //Add product logic
     @Override
     public Products addProduct(Long id, String title, String description, String image, Double price, String category) {
         FakestoreDto fakestoreDto = new FakestoreDto();
@@ -38,7 +38,7 @@ public class FakestoreService implements ProductService {
     }
 
 
-
+    //Get all products logic
     public List<Products> getProducts() {
         FakestoreDto[] fakeStoreListOfProducts =
                 restTemplate.getForObject("https://fakestoreapi.com/products/",
@@ -52,16 +52,12 @@ public class FakestoreService implements ProductService {
 
     }
 
-
+    //Get single product logic
     public Products getsingleProduct(Long id) throws ProductNotFoundException {
         System.out.println("we got the single product");
 
-
         FakestoreDto fakestoreDto= restTemplate.getForObject("https://fakestoreapi.com/products/"+id,FakestoreDto.class);
 
-
-
-        //System.out.println(restTemplate.getForObject("https://fakestoreapi.com/products/" +(1),FakestoreDto.class));
         System.out.println("FakeStore DTO::"+fakestoreDto.toString());
 
         if(fakestoreDto==null){
@@ -71,7 +67,7 @@ public class FakestoreService implements ProductService {
     }
 
 
-
+    //Delete product logic
     @Override
     public String deleteProduct(Long id) {
 
@@ -80,8 +76,7 @@ public class FakestoreService implements ProductService {
         return "delete successful";
     }
 
-
-
+    //Update product logic
     @Override
     public Products updateProduct(Products product) {
 
