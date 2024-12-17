@@ -25,10 +25,11 @@ public class ProductApi {
     //Post API to add a product
     @PostMapping("/products")
     private Products addProduct(@RequestBody Products product) {
-    Products p=productService.addProduct(product.getId(),product.getTitle()
-    ,product.getDescription(),product.getImage(),product.getPrice(),product.getCategory().getName());
-
-    return p;
+//    Products p=productService.addProduct(product.getId(),product.getTitle()
+//    ,product.getDescription(),product.getImage(),product.getPrice(),product.getCategory().getName());
+//
+//    return p;
+        return null;
 
     }
 
