@@ -3,6 +3,8 @@ package com.scaler.dec_2_api_spring.repository;
 import com.scaler.dec_2_api_spring.model.Products;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface ProductRepo extends JpaRepository<Products, Integer> {
 
     //Get all products
@@ -15,5 +17,7 @@ public interface ProductRepo extends JpaRepository<Products, Integer> {
 
     //Delete product
 
-    Products findProductsByDescription(String description);
+    Optional<Products> findByDescription(String description);
+
+    Optional<Products> findById(Long id);
 }

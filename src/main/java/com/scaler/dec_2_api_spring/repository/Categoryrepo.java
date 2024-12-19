@@ -1,9 +1,13 @@
 package com.scaler.dec_2_api_spring.repository;
 
+import com.scaler.dec_2_api_spring.controller.CategoriesApi;
+import com.scaler.dec_2_api_spring.model.Categories;
 import jdk.jfr.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface Categoryrepo extends JpaRepository<Category, Long> {
+import java.util.Optional;
+
+public interface Categoryrepo extends JpaRepository<Categories, Long> {
 
     //Get all categories
 
@@ -15,5 +19,5 @@ public interface Categoryrepo extends JpaRepository<Category, Long> {
 
     //Delete category
 
-    Category findByName (String Name);
+    Optional<Categories> findByName (String Name);
 }
