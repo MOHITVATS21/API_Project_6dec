@@ -19,5 +19,8 @@ public interface Categoryrepo extends JpaRepository<Categories, Long> {
 
     //Delete category
 
+    Optional<Categories> findById(Long id);
+
     Optional<Categories> findByName (String Name);
+    Categories save(Categories category);
 }
