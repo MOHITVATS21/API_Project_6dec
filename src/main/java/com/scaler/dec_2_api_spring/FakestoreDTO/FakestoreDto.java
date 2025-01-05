@@ -1,19 +1,11 @@
 package com.scaler.dec_2_api_spring.FakestoreDTO;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.scaler.dec_2_api_spring.model.Products;
 import com.scaler.dec_2_api_spring.model.Categories;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.io.Serializable;
-
-//@Getter
-//@Setter
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class FakestoreDto {
 
@@ -84,21 +76,21 @@ public class FakestoreDto {
 
 
 
-    public Products getProduct() {
-        // Create a new Products object
-        Products products = new Products();
-
-        // Set the fields from the FakestoreDto instance
-        products.setId(id);
-        products.setTitle(title);
-        products.setPrice(price);
-        products.setDescription(description);
-        products.setImage(image);
-        //System.out.println("Product store data ::"+products.toString());
-
-        Categories cat = new Categories();
-        cat.setName(category);
-        products.setCategory(cat);
-        return products;
-    }
+//    public Products getProduct() {
+//        // Create a new Products object
+//        Products products = new Products();
+//
+//        // Set the fields from the FakestoreDto instance
+//        products.setId(id);
+//        products.setTitle(title);
+//        products.setPrice(price);
+//        products.setDescription(description);
+//        products.setImage(image);
+//        //System.out.println("Product store data ::"+products.toString());
+//
+//        Categories cat = new Categories();
+//        cat.setName(category);
+//        products.setCategory(cat);
+//        return products;
+//    }
 }

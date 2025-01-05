@@ -1,16 +1,32 @@
 package com.scaler.dec_2_api_spring.model;
 
-public class Categories {
-    private Long id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@lombok.Getter
+@lombok.Setter
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@Entity
+public class Categories extends BaseModel{
+
+
+
+
+
     private String name;
 
-    public Long getId() {
-        return id;
+
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Products> products;
+
+    public Categories(String name) {
+        this.name = name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -20,12 +36,5 @@ public class Categories {
         this.name = name;
     }
 
-    public Categories() {
-        System.out.println("cat is called");
-    }
 
-    public Categories(String name, Long id) {
-        this.name = name;
-        this.id = id;
-    }
 }

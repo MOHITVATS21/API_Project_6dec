@@ -4,6 +4,7 @@ import com.scaler.dec_2_api_spring.Exceptions.ProductNotFoundException;
 import com.scaler.dec_2_api_spring.FakestoreDTO.ErrorDTO;
 import com.scaler.dec_2_api_spring.model.Products;
 import com.scaler.dec_2_api_spring.service.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class ProductApi {
 
     private ProductService productService;
 
-    public ProductApi(ProductService productService) {
+    public ProductApi( @Qualifier("DBservice") ProductService productService) {
 
         this.productService = productService;
     }
@@ -29,6 +30,7 @@ public class ProductApi {
     ,product.getDescription(),product.getImage(),product.getPrice(),product.getCategory().getName());
 
     return p;
+
 
     }
 
